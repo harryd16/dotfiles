@@ -134,46 +134,56 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-# Start i3bar to display a workspace bar (plus the system information i3status
-# finds out, if available)
-bar {
-        status_command i3status
-        tray_output primary
-}
-
 
 # Colors
 
-set $bg-color            #2B7B3D
-set $inactive-bg-color   #113118
-set $text-color          #F2F2F2
-set $inactive-text-color #7FAF8A
-set $urgent-bg-color     #7E0404
-set $indicator           #000000
+set $windowFocus         #2B7B3D
+set $windowUnfocus       #113118
+set $windowFocusText     #F2F2F2
+set $windowUnfocusText   #7FAF8A
+set $windowUrgent        #7E0404
+set $windowIndicator     #000000
 
-set $blue                #2950C5
+set $barFocus            #2950C5
+set $barFocusOutline     #142862
+set $barUnfocus          #45474D
+set $barUnfocusOutline   #2E2F33
+set $barFocusText        #FAFAFA
+set $barUnfocusText      #EBEDF2
+set $barUrgent           $windowUrgent
+set $barUrgentOutline    #4D0202
 
 # Window  Colors
 #                       border             background         text                 indicator
-client.focused          $bg-color          $bg-color          $text-color          $indicator
-client.unfocused        $inactive-bg-color $inactive-bg-color $inactive-text-color $indicator
-client.focused_inactive $inactive-bg-color $inactive-bg-color $inactive-text-color $indicator
-client.urgent           $urgent-bg-color   $urgent-bg-color   $text-color          $indicator
+client.focused          $windowFocus       $windowFocus       $windowFocusText     $windowIndicator
+client.unfocused        $windowUnfocus     $windowUnfocus     $windowUnfocusText   $windowIndicator
+client.focused_inactive $windowUnfocus     $windowUnfocus     $windowUnfocusText   $windowIndicator
+client.urgent           $windowUrgent      $windowUrgent      $windowFocusText     $windowIndicator
 
-# Status Bar Colors
- bar {
-   status_command i3blocks -c /home/harry/.i3/i3blocks.conf
-   colors {
-       background $bg-color
-       separator #XXXXXX
-       #           boarder           background         text
-       focused_workspace $bg-color  $bg-color      $text-color
-       inactive_workspace   $inactive-bg-color  $inactive-bg-color   $inactive-text-color
-       urgent_workspace    $urgent-bg-color   $urgent-bg-color   $text-color
+client.background       $windowFocus
 
+# Remove Boarders
+hide_edge_borders both
 
+# Status Bar# Start i3bar to display a workspace bar (plus the system information i3status
+# finds out, if available)
+bar {
+    status_command i3status
+    tray_output primary
 
+    separator_symbol ":"
+    colors {
+        background #000000
+        #                  boarder            background  text
+        focused_workspace  $barFocusOutline   $barFocus   $barFocusText
+        inactive_workspace $barUnfocusOutline $barUnfocus $barUnfocusText
+        urgent_workspace   $barUrgentOutline  $barUrgent  $text-color
 
+# Pixel width boarder
+# new_window pixel
+# new_float pixel
+    }
+}
 
 
 
@@ -195,10 +205,14 @@ bindsym XF86AudioPause exec playerctl pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
+# Lock button
+# bindsys asdf win+l hybernate
+
 # De-uglify
 # --no-exec startup-id gnome-settings-daemon
 
 # Status bar applets
-exec --no-startup-id nm-applet
+## Network connection popup
+# exec --no-startup-id nm-applet
 
 
