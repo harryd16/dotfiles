@@ -1,4 +1,6 @@
 syntax on
+helptags ~/.vim/doc
+filetype plugin on
 
 " Move backup files to tmp (ironic)
 set swapfile
